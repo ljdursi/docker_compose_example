@@ -31,7 +31,7 @@ def get_hit_count():
 @app.route('/')
 def bonjour():
     count = get_hit_count()
-    return "Bonjour, le monde!  J'ai ete vu {} fois.\n".format(count)
+    return "Bonjour, le monde!  J'ai été vu {} fois.\n".format(count)
 
 
 if __name__ == "__main__":
