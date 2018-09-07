@@ -1,0 +1,46 @@
+version: '3'
+services:
+
+  api_gw:
+    build: ./api_gw
+    restart: always
+    ports:
+     - "80:80"
+    links:
+     - hello1
+     - hello2
+     - bonjour
+     - logstash
+
+  hello1:
+    build: ./hello
+    ports:
+     - "5001:5000"
+    links:
+     - redis
+
+  hello2:
+    build: ./hello
+    ports:
+     - "5002:5000"
+    links:
+     - redis
+
+  bonjour:
+    build: ./bonjour
+    ports:
+     - "5100:5000"
+    links:
+     - redis
+
+  redis:
+    image: "redis:alpine"
+
+  logstash:
+    build: ./logstash
+    ports:
+     - "5140:5140"
+     - "9200:9200"
+    volumes:
+     - ./logs:/logs
+     - ./logs/logstash:/var/log
